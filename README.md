@@ -27,7 +27,7 @@ Volg de onderstaande stappen om het project lokaal op te zetten:
 
 2. **Navigeer naar de projectmap**:
     ```bash
-    cd react-pokedex
+    cd pokedex-react-app
     ```
 
 3. **Installeer de benodigde dependencies**:
