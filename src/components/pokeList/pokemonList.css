@@ -1,0 +1,24 @@
+.pokemon-list {
+    display: grid;
+    grid-template-columns: repeat(3, 400px);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.item {
+    width: 360px;
+    height: 260px;
+    border-radius: 10px;
+    background: white;
+    opacity: 0; /* Begin met onzichtbaar */
+    transform: translateY(20px); /* Begin met een lichte offset naar beneden */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Animatie-effect */
+}
+
+.pokemon-list .item.visible {
+    opacity: 1; /* Maak zichtbaar */
+    transform: translateY(0); /* Verwijder de offset */
+}
+

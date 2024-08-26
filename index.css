@@ -1,0 +1,11 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #F8F8F8;
+    font-family: Arial;
+}
+
+#root {
+    height: 100%;
+}

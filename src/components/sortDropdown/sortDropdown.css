@@ -1,0 +1,27 @@
+.dropdown-container {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-label {
+    margin-right: 15px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    color: #FFFFFF;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown select {
+    border-radius: 200px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}

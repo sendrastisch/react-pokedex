@@ -1,0 +1,37 @@
+.gensort-parent-div{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0, rgba(27, 31, 35, 0.15) 0 0 0 1px;
+}
+
+.gensort{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.gensort-label{
+    font-weight: bold;
+}
+
+.gensort-item{
+    margin: 0 7px;
+    cursor: pointer;
+    position: relative;
+}
+
+.gensort-item.selected::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* Adjust this value to move the underline further down */
+    left: 0;
+    width: 100%;
+    height: 3px; /* Thickness of the underline */
+    background-color: #E04958; /* Color of the underline */
+}
+
+

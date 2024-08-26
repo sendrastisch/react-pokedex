@@ -1,0 +1,23 @@
+.input-container {
+    position: relative;
+    width: 800px;
+    margin-right: 80px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px 20px 10px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    outline: none;
+    background-color: #F8F8F8;
+}
+
+.icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
