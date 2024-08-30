@@ -1,0 +1,22 @@
+.sortbar-parent-div{
+    height: 75px;
+    width: 100%;
+    background-color: #E04958;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    position: absolute;
+    margin-left: 20px;
+    left: 0;
+    font-size: 30px;
+    opacity: 0.4;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.logo:hover{
+    opacity: 1;
+}
