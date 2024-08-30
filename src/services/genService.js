@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const POKE_GENERATION_API_URL = 'https://pokeapi.co/api/v2/generation'; // URL voor generations
+const POKE_GENERATION_API_URL = 'https://pokeapi.co/api/v2/generation';
 
 export const fetchAllPokemonGens = async () => {
     try {
