@@ -5,16 +5,13 @@ const POKE_API_URL = 'https://pokeapi.co/api/v2/pokemon';
 export const fetchAllPokemon = async () => {
     try {
         let allPokemon = [];
-        let nextUrl = `${POKE_API_URL}?limit=100`; // Pas de limiet aan indien nodig
+        let nextUrl = `${POKE_API_URL}?limit=100`;
 
         while (nextUrl) {
             const response = await axios.get(nextUrl);
             const pokemonData = await Promise.all(
                 response.data.results.map(async (p) => {
-                    // Verkrijg Pokémon-details
                     const pokemonDetails = await axios.get(p.url);
-
-                    // Verkrijg generatie-informatie
                     const speciesUrl = pokemonDetails.data.species.url;
                     const speciesResponse = await axios.get(speciesUrl);
                     const generationUrl = speciesResponse.data.generation.url;
@@ -27,21 +24,40 @@ export const fetchAllPokemon = async () => {
                             name: p.name,
                             image: pokemonDetails.data.sprites.other['official-artwork'].front_default,
                             type: pokemonDetails.data.types.map(type => type.type.name),
-                            gen: generationName // Voeg generatie-naam toe
+                            gen: generationName
                         };
                     } else {
                         return null;
                     }
                 })
             );
-
-            // Voeg de data toe aan de verzameling en filter null waarden eruit
             allPokemon = [...allPokemon, ...pokemonData.filter(pokemon => pokemon !== null)];
-            nextUrl = response.data.next; // Verkrijg de URL voor de volgende pagina
+            nextUrl = response.data.next;
         }
         return allPokemon;
     } catch (error) {
         console.error('Error fetching Pokémon:', error);
+        throw error;
+    }
+};
+
+export const fetchPokemonById = async (id) => {
+    try {
+        const response = await axios.get(`${POKE_API_URL}/${id}`);
+        const data = response.data;
+        console.log(data)
+
+        return {
+            id: data.id,
+            name: data.name,
+            height: data.height,
+            weight: data.weight,
+            image: data.sprites.other['official-artwork'].front_default,
+            type: data.types.map(type => type.type.name),
+            abilities: data.abilities.map(ability => ability.ability.name)
+        };
+    } catch (error) {
+        console.error('Error fetching Pokémon by ID:', error);
         throw error;
     }
 };

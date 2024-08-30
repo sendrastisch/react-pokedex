@@ -1,0 +1,15 @@
+.svg-back {
+    margin-left: 10px;
+}
+
+.back-div {
+    display: flex;
+    margin-top: 10px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
+.back-div:hover {
+    opacity: 1;
+}
