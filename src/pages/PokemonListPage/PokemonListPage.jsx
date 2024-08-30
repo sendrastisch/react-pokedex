@@ -10,7 +10,7 @@ import {
 import {fetchAllPokemonTypes} from "../../services/typeService.js";
 import {fetchAllPokemonGens} from "../../services/genService.js";
 import './PokemonListPage.css';
-import Navbar from "../../components/navbar/navbar.jsx";
+import Sortbar from "../../components/sortbar/sortbar.jsx";
 
 const PokemonListPage = () => {
     const [pokemon, setPokemon] = useState([]);
@@ -50,9 +50,6 @@ const PokemonListPage = () => {
         if (searchTerm.trim() !== "") {
             filtered = searchPokemon(pokemon, searchTerm);
         }
-
-        console.log(pokemon)
-
         filtered = filterPokemonByType(filtered, selectedType);
         filtered = filterPokemonByGen(filtered, selectedGen);
         filtered = sortPokemon(filtered, sortOption);
@@ -69,7 +66,7 @@ const PokemonListPage = () => {
             ) : (
                 <div className={`upper scrolling-image-container`}>
                     <div className="scrolling-image">
-                        <Navbar
+                        <Sortbar
                             className={`navbar `}
                             sortOption={sortOption}
                             setSortOption={setSortOption}
