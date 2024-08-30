@@ -10,15 +10,13 @@
 .item {
     width: 360px;
     height: 260px;
-    border-radius: 10px;
-    background: white;
-    opacity: 0; /* Begin met onzichtbaar */
-    transform: translateY(20px); /* Begin met een lichte offset naar beneden */
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Animatie-effect */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
 .pokemon-list .item.visible {
-    opacity: 1; /* Maak zichtbaar */
-    transform: translateY(0); /* Verwijder de offset */
+    opacity: 1;
+    transform: translateY(0);
 }
 
