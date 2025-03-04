@@ -22,7 +22,7 @@ Volg de onderstaande stappen om het project lokaal op te zetten:
 
 1. **Clone de repository**:
     ```bash
-    git clone https://github.com/jouwgebruikersnaam/react-pokedex.git
+    git clone https://github.com/sendrastisch/react-pokedex.git
     ```
 
 2. **Navigeer naar de projectmap**:
