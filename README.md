@@ -15,6 +15,7 @@ Dit is een interactieve Pokedex-applicatie gebouwd met React. De applicatie bied
   - Type (bijv. Water, Vuur, Gras, etc.)
   - Generatie (bijv. Gen 1, Gen 2, etc.)
 - **Zoekbalk**: Zoek naar specifieke Pokémon op naam.
+- **Pokémon Details Pagina**: Klik op een Pokémon om gedetailleerde informatie over die specifieke Pokémon te bekijken, zoals zijn type, statistieken en evoluties.
 
 ## 📦 Installatie
 
@@ -48,10 +49,10 @@ De applicatie wordt standaard gestart op [http://localhost:5173](http://localhos
 2. **Gebruik de sorteermogelijkheden** om de volgorde van de Pokémon-lijst aan te passen op basis van jouw voorkeuren.
 3. **Gebruik de filteropties** om de lijst te verfijnen op basis van het type of de generatie van de Pokémon.
 4. **Gebruik de zoekbalk** om een specifieke Pokémon op naam te vinden.
+5. **Klik op een Pokémon** om naar de details pagina te gaan en gedetailleerde informatie over de Pokémon te bekijken.
 
 ## 🚀 Toekomstige verbeteringen
 
-- **Pokémon details pagina**: Voeg de mogelijkheid toe om op een Pokémon te klikken voor gedetailleerde informatie.
 - **Favorieten functionaliteit**: Sta gebruikers toe hun favoriete Pokémon op te slaan.
 - **Meertalige ondersteuning**: Voeg ondersteuning toe voor meerdere talen.
 
