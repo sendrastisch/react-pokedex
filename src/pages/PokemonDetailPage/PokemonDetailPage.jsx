@@ -18,7 +18,6 @@ const PokemonDetailPage = () => {
                 const data = await fetchPokemonById(id);
                 setPokemon(data);
                 setLoading(false);
-                console.log(data);
             } catch (error) {
                 setError(error);
                 setLoading(false);
