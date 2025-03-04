@@ -51,7 +51,6 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<PokemonListPage pokemon={pokemon}
                                                               sortOption={sortOption}
-                                                              setSortOption={setSortOption}
                                                               types={types}
                                                               gens={gens}
                                                               selectedType={selectedType}
