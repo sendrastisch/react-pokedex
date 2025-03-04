@@ -1,0 +1,114 @@
+.static-banner {
+    width: 100vw;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.pokemon-detail{
+    position: relative;
+    overflow: hidden;
+}
+
+.pokeball-img-detail {
+    width: 50vh;
+    height: 50vh;
+    position: absolute;
+    top: 20%;
+    transform: translateX(25%);
+    right: 0;
+    z-index: 0;
+    mix-blend-mode: overlay;
+    opacity: 1;
+}
+
+.pokemon-image {
+    position: absolute;
+    width: 60vh;
+    transform: translateY(-85%) translateX(120vh);
+    height: auto;
+    z-index: 1;
+}
+
+.detail-header{
+    font-size: 10vh;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.description-p{
+    font-size: 2vh;
+    font-weight: normal;
+    max-width: 60vh;
+}
+
+.text-content{
+    z-index: 1;
+    text-align: left;
+    margin-right: 180px;
+    margin-left: 180px;
+}
+
+.moves-and-info-container{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    margin-left: 30vh;
+    margin-right: 30vh;
+}
+.information-container {
+    width: 30%;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.pokemon-info-list {
+    list-style-type: none;
+    padding: 0;
+    margin-right: 10px
+}
+
+.pokemon-info-list li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.pokemon-moves-table {
+    width: 50vh;
+    margin-bottom: 100px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1.4vh;
+    border: 1px solid #ddd;
+    flex-grow: 1;
+}
+
+.pokemon-moves-table th, .pokemon-moves-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.pokemon-moves-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.pokemon-moves-table td {
+    background-color: white;
+    border-top: 1px solid #ddd;
+}
+
+.pokemon-moves-table tr:nth-child(even) td {
+    background-color: #f4f4f4;
+}

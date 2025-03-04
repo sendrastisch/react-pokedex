@@ -1,4 +1,3 @@
-// PokemonList.js
 import React, { useEffect, useRef } from 'react';
 import PokemonItem from '../pokeItem/pokemonItem';
 import './pokemonList.css';
@@ -21,16 +20,17 @@ const PokemonList = ({ pokemon }) => {
                     triggerHook: 0.9, // Start de animatie als het item bijna in beeld is
                     reverse: false, // Animatie slechts één keer
                 })
-                    .setClassToggle(item, 'visible') // Voeg de class 'visible' toe wanneer getriggerd
+                    .setClassToggle(item, 'visible') //voeg de class 'visible' toe wanneer getriggerd
                     .addTo(controller);
             });
         }
 
-        // Cleanup functie om memory leaks te voorkomen
+        //Cleanup functie om memory leaks te voorkomen
         return () => {
             controller.destroy(true);
         };
-    }, [pokemon]); // Effect opnieuw uitvoeren wanneer de lijst van Pokémon wijzigt
+
+    }, [pokemon]);
 
     return (
         <div>

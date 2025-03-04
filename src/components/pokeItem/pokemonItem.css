@@ -1,6 +1,6 @@
 .container-item {
     border-radius: 10px;
-    transition: transform 0.3s ease; /* Voeg overgang toe voor de vergroting */
+    transition: transform 0.3s ease;
     overflow: hidden;
 }
 
@@ -72,7 +72,7 @@ img {
 }
 
 .pokemon-item-link:hover .container-item {
-    transform: scale(1.05); /* Vergroot het element met 10% bij hover */
+    transform: scale(1.05);
 }
 
 

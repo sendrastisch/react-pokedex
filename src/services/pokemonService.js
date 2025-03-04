@@ -1,42 +1,73 @@
 import axios from 'axios';
-
 const POKE_API_URL = 'https://pokeapi.co/api/v2/pokemon';
+export const fetchAllGenerations = async () => {
+    try {
 
+        const response = await axios.get("https://pokeapi.co/api/v2/generation/");
+        const genCount = response.data.count;
+
+        const generations = await Promise.all(
+            Array.from({ length: genCount }, (_, i) =>
+                axios.get(`https://pokeapi.co/api/v2/generation/${i + 1}/`)
+            )
+        );
+
+        return generations.map((gen) => ({
+            name: gen.data.name,
+            pokemonList: gen.data.pokemon_species,
+        }));
+    } catch (error) {
+        console.error("Error fetching generations:", error);
+        throw error;
+    }
+};
 export const fetchAllPokemon = async () => {
     try {
         let allPokemon = [];
-        let nextUrl = `${POKE_API_URL}?limit=100`;
 
-        while (nextUrl) {
-            const response = await axios.get(nextUrl);
-            const pokemonData = await Promise.all(
-                response.data.results.map(async (p) => {
-                    const pokemonDetails = await axios.get(p.url);
-                    const speciesUrl = pokemonDetails.data.species.url;
-                    const speciesResponse = await axios.get(speciesUrl);
-                    const generationUrl = speciesResponse.data.generation.url;
-                    const generationResponse = await axios.get(generationUrl);
-                    const generationName = generationResponse.data.name;
+        const generations = await fetchAllGenerations();
 
-                    if (pokemonDetails.data.is_default) {
+        for (const generation of generations) {
+            const { pokemonList, name: generationName } = generation;
+
+            const pokemonDetails = await Promise.all(
+                pokemonList.map(async (pokemon) => {
+                    try {
+                        const speciesResponse = await axios.get(
+                            `https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`
+                        );
+
+                        const pokemonId = speciesResponse.data.id;
+
+                        const detailsResponse = await axios.get(
+                            `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+                        );
+
+                        const details = detailsResponse.data;
+
                         return {
-                            id: pokemonDetails.data.id,
-                            name: p.name,
-                            image: pokemonDetails.data.sprites.other['official-artwork'].front_default,
-                            type: pokemonDetails.data.types.map(type => type.type.name),
-                            gen: generationName
+                            id: details.id,
+                            name: details.name,
+                            image: details.sprites.other['official-artwork'].front_default,
+                            type: details.types.map((type) => type.type.name),
+                            gen: generationName,
                         };
-                    } else {
+                    } catch (error) {
+                        console.warn(
+                            `Fout bij het ophalen van Pokémon: ${pokemon.name}`,
+                            error.message
+                        );
                         return null;
                     }
                 })
             );
-            allPokemon = [...allPokemon, ...pokemonData.filter(pokemon => pokemon !== null)];
-            nextUrl = response.data.next;
+
+            allPokemon.push(...pokemonDetails.filter(pokemon => pokemon !== null));
         }
+
         return allPokemon;
     } catch (error) {
-        console.error('Error fetching Pokémon:', error);
+        console.error("Error fetching Pokémon:", error);
         throw error;
     }
 };
@@ -45,7 +76,33 @@ export const fetchPokemonById = async (id) => {
     try {
         const response = await axios.get(`${POKE_API_URL}/${id}`);
         const data = response.data;
-        console.log(data)
+
+        //haal de species-informatie op (voor de beschrijving)
+        const speciesResponse = await axios.get(data.species.url);
+        const speciesData = speciesResponse.data;
+
+        const description = speciesData.flavor_text_entries.find(entry => entry.language.name === 'en')?.flavor_text || 'No description available';
+        const cleanText = (text) => text.replace(/[\n\f\r]+/g, ' ').trim();
+
+        const levelUpMoves = data.moves
+            .map(move => {
+                const levelDetails = move.version_group_details.find(version => version.move_learn_method.name === 'level-up');
+                return levelDetails ? { name: move.move.name, level: levelDetails.level_learned_at, url: move.move.url } : null;
+            })
+            .filter(move => move !== null)
+            .sort((a, b) => a.level - b.level);
+
+        //move types via een APIcall per move (max 10 moves om de API te sparen)
+        const movePromises = levelUpMoves.slice(0, 10).map(async (move) => {
+            const moveResponse = await axios.get(move.url);
+            return {
+                name: move.name.replace('-', ' '),
+                level: move.level,
+                type: moveResponse.data.type.name
+            };
+        });
+
+        const moves = await Promise.all(movePromises); // Wacht op alle API-calls
 
         return {
             id: data.id,
@@ -54,46 +111,20 @@ export const fetchPokemonById = async (id) => {
             weight: data.weight,
             image: data.sprites.other['official-artwork'].front_default,
             type: data.types.map(type => type.type.name),
-            abilities: data.abilities.map(ability => ability.ability.name)
+            abilities: data.abilities.map(ability => ability.ability.name),
+            description: cleanText(description),
+            stats: {
+                hp: data.stats.find(stat => stat.stat.name === 'hp')?.base_stat || 0,
+                attack: data.stats.find(stat => stat.stat.name === 'attack')?.base_stat || 0,
+                defense: data.stats.find(stat => stat.stat.name === 'defense')?.base_stat || 0,
+                specialAttack: data.stats.find(stat => stat.stat.name === 'special-attack')?.base_stat || 0,
+                specialDefense: data.stats.find(stat => stat.stat.name === 'special-defense')?.base_stat || 0,
+                speed: data.stats.find(stat => stat.stat.name === 'speed')?.base_stat || 0,
+            },
+            moves
         };
     } catch (error) {
         console.error('Error fetching Pokémon by ID:', error);
         throw error;
     }
 };
-
-export const filterPokemonByType = (pokemon, type) => {
-    if (!type) return pokemon;
-    return pokemon.filter(p => p.type.includes(type));
-};
-
-export const filterPokemonByGen = (pokemon, gen) => {
-    if (!gen) return pokemon;
-    return pokemon.filter(p => p.gen === gen);
-};
-
-//sort function for the dropdown menu at pokemonlist
-export const sortPokemon = (pokemon, option) => {
-    switch (option) {
-        case 'name-ascending':
-            return [...pokemon].sort((a, b) => a.name.localeCompare(b.name));
-        case 'name-descending':
-            return [...pokemon].sort((a, b) => b.name.localeCompare(a.name));
-        case 'no-ascending':
-            return [...pokemon].sort((a, b) => a.id - b.id);
-        case 'no-descending':
-            return [...pokemon].sort((a, b) => b.id - a.id);
-        case 'random':
-            return [...pokemon].sort(() => Math.random() - 0.5);
-        default:
-            return pokemon;
-    }
-};
-
-// Function to search through all Pokemon
-export const searchPokemon = (allPokemon, searchTerm) => {
-    return allPokemon.filter(pokemon =>
-        pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-    );
-};
-

@@ -1,5 +1,5 @@
-.navbar-parent-div{
-    height: 75px;
+.sortbar-parent-div{
+    height: 10vh;
     width: 100%;
     background-color: #E04958;
     display: flex;
@@ -11,7 +11,7 @@
     position: absolute;
     margin-left: 20px;
     left: 0;
-    font-size: 30px;
+    font-size: 3vh;
     opacity: 0.4;
     transition: 0.3s;
     cursor: pointer;

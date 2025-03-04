@@ -1,10 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './typeSort.css';
 
-const TypeSort = ({ types, setSelectedType, selectedType }) => {
+const TypeSort = ({ types, setSelectedType, selectedType, isVisible, onFadeOutComplete}) => {
+    const [fadeOut, setFadeOut] = useState(false);
+
+    useEffect(() => {
+        if (!isVisible) {
+            setFadeOut(true);
+            setTimeout(() => {
+                onFadeOutComplete();
+            }, 500);
+        } else {
+            setFadeOut(false);
+        }
+    }, [isVisible, onFadeOutComplete]);
 
     return (
-        <div className="typesort-parent-div">
+        <div className={`typesort-parent-div ${fadeOut ? "fade-out" : ""}`}>
             <p className="typesort-label">TYPE</p>
             <div className="typesort">
                 {types.length > 0 ? (

@@ -6,7 +6,7 @@ const ScrollToTopButton = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 300) { // Show button after scrolling 300px
+            if (window.scrollY > 300) { //show button after scrolling 300px
                 setIsVisible(true);
             } else {
                 setIsVisible(false);

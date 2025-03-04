@@ -1,13 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './sortDropdown.css';
 
-const SortDropdown = ({ sortOption, setSortOption }) => {
+const SortDropdown = ({ sortOption, setSortOption, isVisible, onFadeOutComplete }) => {
+    const [fadeOut, setFadeOut] = useState(false);
+
+    useEffect(() => {
+        if (!isVisible) {
+            setFadeOut(true);
+            setTimeout(() => {
+                onFadeOutComplete();
+            }, 500);
+        } else {
+            setFadeOut(false);
+        }
+    }, [isVisible, onFadeOutComplete]);
     const handleChange = (event) => {
         setSortOption(event.target.value);
     };
 
     return (
-        <div className="dropdown-container">
+        <div className={`dropdown-container ${fadeOut ? "fade-out" : ""}`}>
             <p className="dropdown-label">SORT BY:</p>
             <div className="dropdown">
                 <select value={sortOption} onChange={handleChange}>
