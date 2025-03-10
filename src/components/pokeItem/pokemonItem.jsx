@@ -1,9 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import './pokemonItem.css';
 import pokeball from '../../assets/images/pokeball.png';
+import * as localStorageService from "../../services/localStorageService.js";
 
-const PokemonItem = ({ id, name, image, type }) => {
+const PokemonItem = ({ id, name, image, type, gen }) => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    useEffect(() => {
+        const favorites = JSON.parse(localStorage.getItem('favoritePokemon')) || [];
+        const isFavorite = favorites.some(fav => fav.id === id);
+        setIsClicked(isFavorite);
+    }, [id]);
+
+    const handleFavoriteToggle = (e) => {
+        e.preventDefault();  //voorkomt dat navigatie naar pokemon detailpagina wordt uitgevoerd
+        //als state al clicked is, en er wordt opnieuw geklikt betekent dit dat de pokemon uit de favorites verwijderd moet worden
+        if (isClicked) {
+            localStorageService.removeFavorite(id);
+            setIsClicked(false);
+        } else {
+            //anders voeg toe aan faves
+            const newFavorite = {
+                id,
+                name,
+                image,
+                type,
+                gen
+            };
+            localStorageService.addFavorite(newFavorite);
+            setIsClicked(true);
+        }
+    };
 
     function capitalizeFirstLetter(word) {
         return word.charAt(0).toUpperCase() + word.slice(1);
@@ -58,8 +86,12 @@ const PokemonItem = ({ id, name, image, type }) => {
         <Link to={`/pokemon/${id}`} className="pokemon-item-link">
             <div className={'container-item'} style={{ backgroundColor }}>
                 <div className={`image-div`}>
-                    <img className={'pokemon-img'} src={image} alt={name} />
-                    <img className={'pokeball-img'} src={pokeball} alt={"pokeball"} />
+                    <i
+                        onClick={handleFavoriteToggle}
+                        className={isClicked ? "fa-solid fa-heart solid-heart" : "fa-regular fa-heart"}
+                    ></i>
+                    <img className={'pokemon-img'} src={image} alt={name}/>
+                    <img className={'pokeball-img'} src={pokeball} alt={"pokeball"}/>
                 </div>
                 <div className="name-id-div">
                     <p>#{id}</p>
@@ -80,5 +112,4 @@ const PokemonItem = ({ id, name, image, type }) => {
         </Link>
     );
 };
-
 export default PokemonItem;

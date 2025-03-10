@@ -1,11 +1,15 @@
 import React, {useMemo, useState} from 'react';
 import PokemonList from '../../components/PokemonList/pokemonList';
 import './PokemonListPage.css';
+import * as localStorageService from "../../services/localStorageService.js";
 const PokemonListPage = ({ pokemon,sortOption, selectedType, selectedGen, searchTerm }) => {
     const [filteredPokemon, setFilteredPokemon] = useState([]);
 
     useMemo(() => {
-        let filtered = pokemon;
+        let filtered = sortOption === "favorites"
+            ? localStorageService.getFavorites() //haal favorieten op
+            : pokemon; //gebruik originele Pokémon lijst als sortOption niet "favorites" is
+
         if (searchTerm.trim() !== "") {
             filtered = filtered.filter(p => p.name.toLowerCase().startsWith(searchTerm.toLowerCase()));
         }

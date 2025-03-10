@@ -28,6 +28,7 @@ const SortDropdown = ({ sortOption, setSortOption, isVisible, onFadeOutComplete 
                     <option value="name-ascending">Name ascending (A to Z)</option>
                     <option value="name-descending">Name descending (Z to A)</option>
                     <option value="random">Randomizer</option>
+                    <option value="favorites">Favorites</option>
                 </select>
             </div>
         </div>

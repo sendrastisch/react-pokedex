@@ -43,6 +43,7 @@ const PokemonList = ({ pokemon }) => {
                                 name={p.name}
                                 image={p.image}
                                 type={p.type}
+                                gen={p.gen}
                             />
                         </li>
                     ))

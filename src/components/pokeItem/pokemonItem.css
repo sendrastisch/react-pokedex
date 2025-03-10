@@ -75,5 +75,26 @@ img {
     transform: scale(1.05);
 }
 
+.fa-heart {
+    position: absolute;
+    color: grey;
+    font-size: 24px;
+    right: 0;
+    margin-right: 13px;
+    margin-top: 13px;
+    z-index: 1;
+    transition: color 0.4s ease;
+}
+
+.fa-heart:hover {
+    cursor: pointer;
+    color: #E04958;
+}
+
+.solid-heart {
+    color: #E04958;
+}
+
+
 
 
