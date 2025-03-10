@@ -16,6 +16,7 @@ Dit is een interactieve Pokedex-applicatie gebouwd met React. De applicatie bied
   - Generatie (bijv. Gen 1, Gen 2, etc.)
 - **Zoekbalk**: Zoek naar specifieke Pokémon op naam.
 - **Pokémon Details Pagina**: Klik op een Pokémon om gedetailleerde informatie over die specifieke Pokémon te bekijken, zoals zijn type, statistieken en evoluties.
+- **Favorieten functionaliteit**: Gebruikers kunnen favorieten Pokémon opslaan en ophalen. De data wordt opgeslagen in de Local Storage.
 
 ## 📦 Installatie
 
@@ -50,11 +51,15 @@ De applicatie wordt standaard gestart op [http://localhost:5173](http://localhos
 3. **Gebruik de filteropties** om de lijst te verfijnen op basis van het type of de generatie van de Pokémon.
 4. **Gebruik de zoekbalk** om een specifieke Pokémon op naam te vinden.
 5. **Klik op een Pokémon** om naar de details pagina te gaan en gedetailleerde informatie over de Pokémon te bekijken.
+6. **Voeg Pokémon toe aan favorieten** om je favoriete Pokémon bij te houden en terug te zien.
 
-## 🚀 Toekomstige verbeteringen
+## 🚀 Toekomstige verbeteringen en toevoegingen
 
-- **Favorieten functionaliteit**: Sta gebruikers toe hun favoriete Pokémon op te slaan.
 - **Meertalige ondersteuning**: Voeg ondersteuning toe voor meerdere talen.
+- **Zijbalk Filteropties**: Momenteel worden de filteropties weergegeven in de navigatiebalk, wat leidt tot CLS (Cumulative Layout Shift) op de detailpagina en beperkt gebruikers tot het selecteren van slechts één generatie/type tegelijk. Bovendien is het voor de gebruiker niet intuïtief om filteropties te deselecteren. Om deze problemen op te lossen, worden de filteropties verplaatst naar een zijbalk. In de zijbalk kunnen meerdere filteropties tegelijk geselecteerd worden, worden alle geselecteerde opties duidelijk weergegeven, en kan de gebruiker alle filters met één knop in één keer deselecteren.
+- **Evolutionaire Keten op de Detailpagina**: Voeg de evolutieketen van Pokémon toe aan de detailpagina, zodat gebruikers eenvoudig de evoluties van een Pokémon kunnen bekijken zonder de pagina te verlaten.
+- **Performance optimization**: Momenteel worden alle Pokémon in één keer opgehaald. Dit zorgt voor langere laadtijden dan nodig is. Met Lazy Loading kan worden gezorgd dat slechts de zichtbare Pokémon worden opgehaald. Zodra er gescrolld wordt, kunnen de andere opgehaald worden.
+- **Responsive Design voor mobiel**: De huidige Pokédex is niet responsief voor mobiele apparaten. Er wordt gewerkt aan een mobiele versie, zodat de applicatie ook optimaal werkt op kleinere schermen.
 
 ## 📜 Licentie
 
